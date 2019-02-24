@@ -27,7 +27,9 @@
       </v-navigation-drawer>
       <v-toolbar class="blue darken-3" fixed dark dense app>
         <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-sm-and-up"></v-toolbar-side-icon>
-        <v-toolbar-title>E-invoice</v-toolbar-title>
+        <v-toolbar-title>
+          <router-link to="/" tag="button">E-invoice</router-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
           <v-btn flat v-for="menu in menuItems" :key="menu.icon" :to="menu.link">

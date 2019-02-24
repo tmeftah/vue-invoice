@@ -39,9 +39,7 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
-        <v-container fluid>
-          <router-view></router-view>
-        </v-container>
+        <router-view></router-view>
       </v-content>
       <v-footer class="pa-3">
         <v-spacer></v-spacer>

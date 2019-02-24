@@ -4,7 +4,7 @@
       <v-navigation-drawer
         class="hidden-sm-and-up"
         v-model="drawer"
-        disable-resize-watcher="true"
+        disable-resize-watcher
         fixed
         clipped
         app

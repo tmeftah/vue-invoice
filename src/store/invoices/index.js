@@ -14,6 +14,7 @@ export default {
     ],
     invoices: [
       {
+        id: 0,
         name: "INV0001",
         client: "Client-1",
         amount: "159.52",
@@ -22,6 +23,7 @@ export default {
         due: "01-08-2019"
       },
       {
+        id: 1,
         name: "INV0002",
         client: "Client-2",
         amount: "200.00",
@@ -47,6 +49,13 @@ export default {
     },
     invoices(state) {
       return state.invoices;
+    },
+    invoice(state) {
+      return invoice_id => {
+        return state.invoices.find(invoice => {
+          return invoice.id == invoice_id;
+        });
+      };
     }
   }
 };

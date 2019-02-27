@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "../views/Home.vue";
 import InvoiceList from "../views/invoice/InvoiceList";
+import ShowInvoice from "../views/invoice/ShowInvoice";
 import Create from "../views/invoice/Create";
 import Profile from "../views/user/Profile";
 
@@ -20,6 +21,12 @@ export default new Router({
       path: "/list",
       name: "list",
       component: InvoiceList
+    },
+    {
+      path: "/invoice/:id",
+      name: "invoice",
+      component: ShowInvoice,
+      props: true
     },
     {
       path: "/create",

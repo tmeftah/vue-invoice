@@ -5,7 +5,9 @@
         <h1>Invoice list</h1>
         <v-data-table :headers="headers" :items="invoices" class="elevation-1">
           <template slot="items" slot-scope="props" class="elevation-2">
-            <td>{{ props.item.name }}</td>
+            <td>
+              <router-link :to="'invoice/' + props.item.id">{{ props.item.name }}</router-link>
+            </td>
             <td class="text-xs-left">{{ props.item.client }}</td>
             <td class="text-xs-left">{{ props.item.amount }} {{props.item.currency}}</td>
             <td class="text-xs-left">{{ props.item.term }}</td>

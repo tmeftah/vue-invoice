@@ -36,6 +36,9 @@
             <v-icon class="mr-1">{{menu.icon}}</v-icon>
             {{ menu.title }}
           </v-btn>
+          <v-btn flat v-if="isLoggedIn" @click="logout">
+            <v-icon class="mr-1">lock</v-icon>logout
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-content>
@@ -54,13 +57,45 @@ export default {
   name: "App",
   data() {
     return {
-      drawer: false,
-      menuItems: [
-        { icon: "list_alt", title: "Show Invoices", link: "/list" },
-        { icon: "add_shopping_cart", title: "Create Invoice", link: "/create" },
-        { icon: " person", title: "Profile", link: "/profile" }
-      ]
+      drawer: false
     };
+  },
+  computed: {
+    menuItems() {
+      let menuItems = [{ icon: " lock_open", title: "Login", link: "/login" }];
+      if (this.$store.getters.isLoggedIn) {
+        menuItems = [
+          { icon: "list_alt", title: "Show Invoices", link: "/list" },
+          {
+            icon: "add_shopping_cart",
+            title: "Create Invoice",
+            link: "/create"
+          },
+          { icon: "person", title: "Profile", link: "/profile" }
+        ];
+      }
+      return menuItems;
+    },
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+  methods: {
+    logout: function() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    }
+  },
+  created: function() {
+    this.$http.interceptors.response.use(undefined, function(err) {
+      return new Promise(function(resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch("logout");
+        }
+        throw err;
+      });
+    });
   }
 };
 </script>

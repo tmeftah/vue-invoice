@@ -1,42 +1,65 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "../store/store.js";
 import Home from "../views/Home.vue";
 import InvoiceList from "../views/invoice/InvoiceList";
 import ShowInvoice from "../views/invoice/ShowInvoice";
 import Create from "../views/invoice/Create";
 import Profile from "../views/user/Profile";
+import Login from "../views/user/Login";
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/login",
+      name: "login",
+      component: Login
+    },
+
+    {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/list",
       name: "list",
-      component: InvoiceList
+      component: InvoiceList,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/invoice/:id",
       name: "invoice",
       component: ShowInvoice,
-      props: true
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/create",
       name: "create",
-      component: Create
+      component: Create,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/profile",
       name: "profile",
-      component: Profile
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/about",
@@ -49,3 +72,18 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    store.commit("checktoken");
+    if (store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
+});
+
+export default router;

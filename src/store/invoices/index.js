@@ -12,33 +12,20 @@ export default {
       { text: "Terms", value: "term" },
       { text: "Due", value: "due" }
     ],
-    invoices: [
-      {
-        id: 0,
-        name: "INV0001",
-        client: "Client-1",
-        amount: "159.52",
-        currency: "$",
-        term: "2 Days",
-        due: "01-08-2019"
-      },
-      {
-        id: 1,
-        name: "INV0002",
-        client: "Client-2",
-        amount: "200.00",
-        currency: "€",
-        term: "Due on Recept",
-        due: "17-07-2019"
-      }
-    ]
+    invoices: []
   },
   mutations: {
+    setinvoices(state, payload) {
+      state.invoices = payload;
+    },
     deleteItem(state, payload) {
       state.invoices.splice(payload, 1);
     }
   },
   actions: {
+    setinvoices({ commit }, payload) {
+      commit("setinvoices", payload);
+    },
     deleteItem({ commit }, payload) {
       commit("deleteItem", payload);
     }

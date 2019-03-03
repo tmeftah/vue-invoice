@@ -20,6 +20,22 @@
 </template>
 <script>
 export default {
+  created: function() {
+    this.$http({
+      url: "http://localhost:5000/product/list",
+      headers: {
+        Authorization: "Bearer " + this.$store.state.access_token
+      },
+      method: "GET"
+    })
+      .then(resp => {
+        this.$store.dispatch("setinvoices", resp.data.invoices);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+
   computed: {
     headers() {
       return this.$store.getters.headers;

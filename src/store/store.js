@@ -33,12 +33,6 @@ export default new Vuex.Store({
     logout(state) {
       state.status = "";
       state.access_token = "";
-    },
-    checktoken(state) {
-      state.access_token = localStorage.getItem("access_token") || "";
-      if (!state.access_token) {
-        state.status = "error";
-      }
     }
   },
   actions: {
@@ -97,9 +91,6 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common["Authorization"];
         resolve();
       });
-    },
-    checktoken({ commit }) {
-      commit("checktoken");
     }
   },
   getters: {
